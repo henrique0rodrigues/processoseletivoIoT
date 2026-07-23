@@ -2,349 +2,85 @@
 
 ## Etapa Prática – Sistemas Embarcados
 
-Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
-
-Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
-
-> **Objetivo principal**  
-> Avaliar sua capacidade de **planejar, estruturar e desenvolver** uma solução funcional de sistemas embarcados, seguindo boas práticas de engenharia.
-
----
-
-## Antes de Tudo
-
-Se você **nunca utilizou Git ou GitHub**, não se preocupe.  
-Siga atentamente os passos abaixo.
-
----
-
-### 1 - Criação de Conta no GitHub
-
-1. Acesse: <https://github.com>
-2. Clique em **Sign up**
-3. Crie sua conta gratuita seguindo as instruções da plataforma
-
-> O GitHub será utilizado para:
->
-> - Envio do seu projeto
-> - Versionamento do código
-> - Correção e validação automática via GitHub Actions
-
----
-
-### 2 - Instalação do Git
-
-O **Git** é a ferramenta responsável pelo controle de versões do seu código.
-
-### Windows
-
-Baixe e instale o **Git Bash**:  
-<https://git-scm.com/downloads>
-
-### Linux / macOS
-
-Verifique se o Git já está instalado:
-
-```bash
-git --version
-```
-
-> Caso não esteja, instale pelo gerenciador de pacotes do seu sistema.
-
-## Preparando o Ambiente
-
-Para desenvolver o desafio, você deverá criar uma cópia deste repositório no seu GitHub.
-
-### 1 - Fork do Repositório
-
-No canto superior direito desta página, clique em Fork
-
-<img width="219" height="45" alt="image" src="https://github.com/user-attachments/assets/5d629626-513a-445c-ba0f-e5bb3e225187" />
-
-Uma cópia do repositório será criada no seu perfil do GitHub
-
-> O Fork permite que você trabalhe de forma independente, sem alterar o repositório original do processo seletivo.
-
-### 2 - Clone do Repositório
-
-No repositório do seu Fork, clique em **<> Code**
-
-<img width="149" height="52" alt="image" src="https://github.com/user-attachments/assets/abbd331b-a005-4633-89c6-afd16acbe828" />
-
-Copie a URL e execute no terminal:
-
-```bash
-git clone https://github.com/SEU_USUARIO/nome-do-repositorio.git
-cd nome-do-repositorio
-```
-
-> O comando git clone cria uma cópia local do repositório para desenvolvimento.
-
-### 3 - Preparação do Ambiente de Execução
-
-Você pode executar o projeto de duas formas. Escolha apenas uma.
-
-#### Opção A – Ambiente Python Local
-
-**Requisitos:**
-
-- Python 3.10 ou 3.11
-- pip
-
-**Instale as dependências:**
-
-```bash
-pip install -r requirements.txt
-```
-
-#### Opção B – Dev Container (Recomendado)
-
-Este repositório inclui um Dev Container, garantindo um ambiente padronizado.
-
-**Requisitos:**
-
-- VS Code
-- Docker instalado
-- Extensão Dev Containers
-
-**Passos:**
-
-1. Abra o repositório no VS Code
-2. Clique em “Reopen in Container”
-3. Aguarde a criação automática do ambiente
-
-> Todas as dependências serão instaladas automaticamente.
-
-## Criando sua API Key do Wokwi
-
-A simulação do projeto será executada automaticamente via GitHub Actions, utilizando o Wokwi CLI.
-
-Para isso, você precisa gerar uma API Key.
-
-1. Acesse: <https://wokwi.com/dashboard/ci>
-2. Faça login (Google ou GitHub)
-3. Clique em Generate API Token
-4. Copie a chave gerada (exemplo: wokwi-xxxxxxxx)
-
-> Importante
-
-- Nunca faça commit dessa chave
-- Ela deve ser armazenada apenas como secret no GitHub
-
-## Configurando a API Key no GitHub (Secrets)
-
-**No repositório do seu Fork:**
-
-1. Vá em Settings
-2. Acesse Secrets and variables → Actions
-3. Clique em New repository secret
-4. Nome: WOKWI_API_KEY
-5. Valor: sua chave gerada
-6. Salve
-
-> As GitHub Actions do template já estão preparadas para usar essa variável automaticamente.
-
-## Desafio Técnico
-
-Você deverá desenvolver um projeto de sistemas embarcados simulados, utilizando Python e Wokwi.
-
-### Estrutura mínima esperada
-
-```text
-/project
- ├── src/
- │   └── main.py        # Código principal do projeto
- ├── wokwi.toml         # Configuração da simulação
- ├── diagram.json       # Circuito no Wokwi
- └── README.md          # Explicação do seu projeto
-```
-
-> Você pode expandir essa estrutura se desejar, desde que mantenha os arquivos essenciais.
-
-### Escolha do cenário
-
-No diretório "scenarios" existem arquivos .md e pastas referentes a diferentes desafios. Selecione apenas um deles e mantenha apenas a pasta e .md referente ao desafio a ser desenvolvido, deletando os demais. Isso fará com o que o fluxo de testes automáticos selecione o fluxo de acordo com o desafio escolhido.
-
-### Como Desenvolver seu Projeto
-
-O desenvolvimento acontece principalmente nos arquivos abaixo:
-
-#### src/main.py
-
-- Código Python executado na simulação
-- Implementa a lógica do sistema embarcado
-- Exemplos: controle de LEDs, leitura de sensores, estados, temporizações, etc.
-
-#### diagram.json
-
-- Define o hardware virtual do projeto
-- Componentes como:
-  - LEDs
-  - Botões
-  - Sensores
-  - Placa microcontroladora
-
-#### wokwi.toml
-
-- Configura a simulação:
-  - Tipo de placa
-  - Framework
-  - Dependências adicionais
-
-#### Commit e Push
-
-Após suas alterações:
-
-```bash
-git add .
-git commit -m "Descrição clara do que foi feito"
-git push
-```
-
-### Execução Automática (GitHub Actions)
-
-A cada push, o GitHub Actions irá automaticamente:
-
-- Executar o pipeline de build
-- Rodar a simulação via Wokwi CLI
-- Validar que o projeto executa sem erros
-
-### Caso algo falhe
-
-- Vá até a aba Actions
-- Analise os logs da execução
-- Corrija e envie novamente
-
-## Critérios de Avaliação
-
-Esta etapa será avaliada considerando:
-
-- Funcionamento correto da simulação
-- Código organizado e legível
-- Estrutura de arquivos correta
-- Uso adequado do Wokwi
-- Commits claros e bem descritos
-- Projeto executando sem falhas nas Actions
-
----
-
-## Submissão Final
-
-Após concluir o desenvolvimento:
-
-1. Verifique se o projeto **executa sem erros** nas GitHub Actions
-2. Confirme que todos os arquivos obrigatórios estão presentes
-3. Copie o link do **seu repositório no GitHub**
-
-Envie o link conforme as orientações do processo seletivo na plataforma do **PNAAT**.
-
----
-
-## Relatório do Candidato
-
-O arquivo **`README.md` do seu repositório** deve ser utilizado como o  
-**relatório final do desafio técnico**.
-
-Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
-
-> **Dica importante**  
-> Não é necessário um relatório extenso.  
-> O principal critério é demonstrar **clareza nas decisões técnicas**, organização e entendimento do sistema embarcado desenvolvido.
-> Não mantenha os demais conteúdos escritos nesse arquivo README, aqui devem ser concentradas apenas informações referentes ao projeto desenvolvido.
-
----
-
 ### Identificação do Candidato
 
-- **Nome completo:**
-- **GitHub:**
+- **Nome completo:** Henrique Oliveira Rodrigues
+- **GitHub:** https://github.com/henrique0rodrigues
 
 ---
 
 ## Visão Geral da Solução
 
-Descreva, em poucas palavras:
+O objetivo deste projeto é fornecer uma solução de monitoramento embarcado para auditoria e controle de qualidade em ambientes refrigerados, estufas ou painéis elétricos. O sistema foi desenvolvido para identificar falhas de isolamento físico (porta aberta por muito tempo) e anomalias térmicas (sobreaquecimento), disparando alertas via terminal serial (UART) em tempo real.
 
-- Qual é o objetivo do seu projeto
-- O que o sistema embarcado simulado faz
-- Como o usuário interage com ele (se aplicável)
+O usuário interage com o sistema abrindo/fechando a porta através de um botão de fim de curso e alterando a temperatura ambiente simulada. Quando o ambiente retorna às condições seguras de operação, o sistema reporta a normalização e reinicia seu ciclo de vigilância.
 
 ---
 
 ## Arquitetura do Sistema Embarcado
 
-Explique a arquitetura lógica do seu projeto, abordando:
+A arquitetura lógica do firmware foi projetada como uma máquina de estados não-bloqueante, garantindo que o microcontrolador monitore múltiplos sensores em paralelo sem perder sincronicidade.
 
-- Fluxo principal do programa (`main.py`)
-- Estrutura de estados, loops ou temporizações
-- Como os componentes interagem entre si
 
-Se desejar, utilize tópicos ou um pequeno diagrama em texto.
+[ Boot do ESP32 ] 
+       │
+       ▼
+[ Inicialização I2C + UART ] ──► (Emite: "Sistema de Monitoramento Inicializado")
+       │
+       ▼
+[ Coleta de Referência Térmica Inicial ]
+       │
+       ▼
+┌──► [ Loop Principal (Ciclo de 50 ms) ] ────────────────────────┐
+│      ├── Leitura Contínua do Sensor de Porta (GPIO 23)         │
+│      ├── Leitura Contínua do Sensor MPU6050 (I2C)              │
+│      │                                                         │
+│      ├── Avaliação de Tempo (ticks_ms):                        │
+│      │    └── Porta aberta ≥ 5000ms? ──► [ Alarme de Porta ]   │
+│      │                                                         │
+│      ├── Avaliação de Gradiente (ΔT):                          │
+│      │    └── ΔT ≥ +3.0 °C? ───────────► [ Alarme Térmico ]    │
+│      │                                                         │
+│      └── Avaliação de Normalização:                            │
+│           └── Porta Fechada AND ΔT < +3.0 °C? ──► [ Normaliza ]│
+└────────────────────────────────────────────────────────────────┘
 
 ---
 
 ## Componentes Utilizados na Simulação
 
-Liste os principais componentes definidos no `diagram.json`, por exemplo:
+- ESP32 DevKit C v4: Unidade de processamento central responsável pela lógica de controle, temporização e comunicação serial.
 
-- Tipo de placa utilizada
-- LEDs, botões, sensores, atuadores, etc.
-- Função de cada componente no sistema
+- MPU6050: Utilizado para ler os dados brutos de temperatura do ambiente e converter para graus Celsius, monitorando o gradiente térmico do ambiente.
+
+- Push Button: Configurado com resistor de Pull-down interno, simulando o estado da porta: 1 = Fechado/Pressionado e 0 = Aberto/Solto.
 
 ---
 
 ## Decisões Técnicas Relevantes
 
-Explique brevemente decisões importantes tomadas durante o desenvolvimento, como:
+Para garantir um código limpo, estável e alinhado aos requisitos de automação, as seguintes estratégias foram adotadas:
 
-- Organização do código
-- Uso de funções, estados ou constantes
-- Estratégias para temporização ou controle lógico
+- Clean Code e Constantes: Evitou-se o uso de "números mágicos" no código. Todos os pinos GPIO, limites de tempo/temperatura e endereços de registradores foram definidos em constantes no topo do arquivo, facilitando a legibilidade e manutenção.
+
+- Lógica Não-Bloqueante: O uso de `time.sleep()` longos foi substituído por temporização assíncrona com `time.ticks_ms()` e `time.ticks_diff()`. Isso permite que o sistema continue monitorando a temperatura do sensor em tempo real enquanto cronometra o tempo da porta aberta sem congelar o processador.
+
+- Comunicação I2C Direta: Em vez de importar bibliotecas externas pesadas para o MPU6050, optou-se pela leitura e escrita nativa nos registradores I2C do sensor e conversão matemática via código.
+
+- Controle de Mensagens Seriais: Foram implementadas variáveis booleanas de controle para que os alertas sejam impressos apenas no instante do disparo. Isso evita a inundação do terminal serial com mensagens repetidas a cada loop de 50 ms.
+
+- Atualização Dinâmica da Referência: Ao retornar ao normal, o firmware atualiza a temperatura base de referência para o novo patamar estabilizado do ambiente, prevenindo alarmes falsos após a recuperação de uma falha térmica.
 
 ---
 
 ## Resultados Obtidos
 
-Descreva o comportamento final do sistema:
+O sistema embarcado foi validado com sucesso e apresentou o seguinte comportamento final:
 
-- O que funciona corretamente
-- Quais requisitos foram atendidos
-- Resultado observado na simulação do Wokwi
+- Alinhamento ao Wokwi CI: A saída serial respondeu perfeitamente ao tempo e formatação das mensagens, sendo aprovada sem falhas no pipeline automatizado.
 
----
+- Disparo Preciso dos Alarmes: O alerta de exposição prolongada é acionado exatamente ao atingir 5000 ms (5 segundos) de porta aberta, e o alarme térmico dispara prontamente perante elevações bruscas de temperatura (variação +3.0°C).
 
-## Comentários Adicionais (Opcional)
-
-Utilize este espaço para comentar, se desejar:
-
-- Dificuldades encontradas
-- Limitações da solução
-- Melhorias que você faria com mais tempo
-- Principais aprendizados durante o desafio
+- Restauração e Normalização Segura: O sistema comprovou sua confiabilidade ao retornar ao estado normal apenas quando ambas as condições de risco foram cessadas simultaneamente.
 
 ---
-
-> Este relatório faz parte da avaliação técnica.  
-> Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
-
----
-
-## Especificação dos Testes Automatizados (Wokwi CI)
-
-Para que o projeto seja validado com sucesso na esteira de integração contínua (CI), o firmware escrito em MicroPython deve interagir corretamente com as leituras dos sensores descritos em cada cenário e enviar as mensagens de status exatas.
-
-### Requisitos Críticos de Implementação
-
-1. **Casamento Exato de Strings:** O Wokwi CI faz uma verificação estrita caractere por caractere. Se houver divergência em maiúsculas/minúsculas, acentuação ou falta de pontuação, o teste irá falhar.
-2. **Arquitetura Não-Bloqueante:** Evite o uso de funções bloqueantes. Elas podem fazer com que o firmware perca a janela de tempo em que o simulador altera o peso, quebrando a sincronia do teste automatizado.
-
----
-
-## Suporte
-
-Em caso de dúvidas:
-
-- Consulte o material dos cursos EAD
-- Leia atentamente este README
-- Analise os logs das GitHub Actions
-- Utilize os canais oficiais para contato com os instrutores
