@@ -56,6 +56,12 @@ while True:
     btn1_state = btn1.value()
     temp_current = readTemperature(i2c_bus)
 
+    # Lógica de variação de temperatura com limite de variação
+    temp_variation = temp_current - temp_initial
+    if temp_variation >= temp_limit and not alarm_temp_active:
+        print("ALERTA: Degradacao termica detectada!")
+        alarm_temp_active = True
+
     # Lógica de tempo de porta aberta com limite de tempo
     if btn1_state == 0:  # Porta aberta
         if open_start_time is None:
@@ -68,13 +74,7 @@ while True:
     else:  # Porta Fechada
         open_start_time = None
 
-    # Lógica de variação de temperatura com limite de variação
-    temp_variation = temp_current - temp_initial
-    if temp_variation >= temp_limit and not alarm_temp_active:
-        print("ALERTA: Degradacao termica detectada!")
-        alarm_temp_active = True
-
-    # Reset dos alarmes quando a porta é fechada e a temperatura volta ao normal
+    # Reset dos alarmes (exige 600ms de estabilidade para normalizar)
     if btn1_state == 1 and temp_variation < temp_limit:
         if alarm_door_active or alarm_temp_active:
             if normal_start_time is None:
@@ -85,6 +85,9 @@ while True:
                 alarm_temp_active = False
                 temp_initial = temp_current
                 normal_start_time = None
+        else:
+            temp_initial = temp_current
+            normal_start_time = None
     else:
         normal_start_time = None  # Reseta o cronômetro se o perigo voltar
 
