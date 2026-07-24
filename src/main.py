@@ -11,6 +11,7 @@ address_imu = 0x68
 # Limites
 time_limit = 5000  # Tempo máx da porta aberta em ms
 temp_limit = 3.0  # Variação máxima de temperatura em °C
+normal_delay_limit = 600  # Tempo de estabilização antes de normalizar (em ms)
 
 # Reg I2C imu
 reg_pwr_mgmt_1 = 0x6B  # Registrador para gerenciar o modo de energia do IMU
@@ -46,8 +47,9 @@ print("Sistema de Monitoramento Inicializado")
 temp_initial = readTemperature(i2c_bus)  # temperatura inicial para comparação
 
 open_start_time = None  # marca o tempo quando a porta é aberta
+normal_start_time = None  # marca o tempo de estabilização ao fechar a porta
 alarm_door_active = False  # marca se o alarme da porta está ativo
-alarm_temp_active = False  # rever esses comentárioss!!!!
+alarm_temp_active = False  # marca se o alarme de temperatura está ativo
 
 while True:
     # Leituras
@@ -75,12 +77,16 @@ while True:
     # Reset dos alarmes quando a porta é fechada e a temperatura volta ao normal
     if btn1_state == 1 and temp_variation < temp_limit:
         if alarm_door_active or alarm_temp_active:
-            print("Status: Sistema Normalizado.")
-            alarm_door_active = False
-            alarm_temp_active = False
-
-            # Atualiza a referência térmica após normalizar o ambiente
-            temp_initial = temp_current
+            if normal_start_time is None:
+                normal_start_time = time.ticks_ms()  # Inicia cronômetro de estabilização
+            elif time.ticks_diff(time.ticks_ms(), normal_start_time) >= normal_delay_limit:
+                print("Status: Sistema Normalizado.")
+                alarm_door_active = False
+                alarm_temp_active = False
+                temp_initial = temp_current
+                normal_start_time = None
+    else:
+        normal_start_time = None  # Reseta o cronômetro se o perigo voltar
 
     # pausa para evitar leituras excessivas
     time.sleep_ms(50)
