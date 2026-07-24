@@ -21,7 +21,7 @@ O usuário interage com o sistema abrindo/fechando a porta através de um botão
 
 A arquitetura lógica do firmware foi projetada como uma máquina de estados não-bloqueante, garantindo que o microcontrolador monitore múltiplos sensores em paralelo sem perder sincronicidade.
 
-
+```text
 [ Boot do ESP32 ] 
        │
        ▼
@@ -44,7 +44,7 @@ A arquitetura lógica do firmware foi projetada como uma máquina de estados nã
 │      └── Avaliação de Normalização:                            │
 │           └── Porta Fechada AND ΔT < +3.0 °C? ──► [ Normaliza ]│
 └────────────────────────────────────────────────────────────────┘
-
+```
 ---
 
 ## Componentes Utilizados na Simulação
